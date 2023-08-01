@@ -82,6 +82,9 @@ const updateMyInfo = (req, res, next) => {
       if (err.name === 'ValidationError') {
         return next(new ValidationError(MSG_ERR_INVALIDID));
       }
+      if (err.code === 11000) {
+        return next(new DuplicateError(MSG_ERR_DUPLICATE));
+      }
       return next(err);
     });
 };
